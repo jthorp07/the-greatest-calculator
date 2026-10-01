@@ -31,7 +31,8 @@ target_sources(libcalculator
   FILE_SET HEADERS
     FILES
       "include/libcalculator.hpp"
-      "include/typedefs.hpp")
+      "include/typedefs.hpp"
+      "include/unsigned_addition.hpp")
 
 # Configure to build with smaller data types?
 if(LIBCALC_USE_SMALL_DATA)

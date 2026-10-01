@@ -8,5 +8,6 @@
 #define LIBCALC_LIBCALCULATOR_HPP
 
 #include "typedefs.hpp"
+#include "unsigned_addition.hpp"
 
 #endif // LIBCALC_LIBCALCULATOR_HPP
