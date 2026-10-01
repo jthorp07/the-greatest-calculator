@@ -30,7 +30,8 @@ target_sources(libcalculator
   PUBLIC
   FILE_SET HEADERS
     FILES
-      "include/libcalculator.hpp")
+      "include/libcalculator.hpp"
+      "include/typedefs.hpp")
 
 # Configure to build with smaller data types?
 if(LIBCALC_USE_SMALL_DATA)
