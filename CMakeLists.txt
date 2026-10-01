@@ -6,6 +6,9 @@ project(TheGreatestCalculator
     DESCRIPTION "You've never seen a calculator like this."
     LANGUAGES CXX)
 
+# IDE Support
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Split binaries into different directories for executables,
 # shared libraries, and static libraries
 #

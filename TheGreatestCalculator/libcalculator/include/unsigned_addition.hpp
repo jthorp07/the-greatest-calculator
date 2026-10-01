@@ -8,6 +8,8 @@
 #ifndef LIBCALC_UNSIGNEDADDITION_HPP
 #define LIBCALC_UNSIGNEDADDITION_HPP
 
+#include <utility>
+
 #include "typedefs.hpp"
 
 namespace calc {
@@ -49,6 +51,33 @@ bool unsignedAdder(UInt operandOne, UInt operandTwo, UInt& result) {
     }
 
     return false;
+}
+
+/**
+ * @brief For its designated first operand, invokes the adders that accept the
+ *        first operand with every possible second operand to determine if one
+ *        of them can add the two operands
+ * 
+ * @tparam OperandOne First operand in the operand pair this lookup accepts
+ * @tparam AllSecondOperands The sequence of all possible second operands to invoke
+ *         adders with
+ * 
+ * @param[in] operandOne First operand
+ * @param[in] operandTwo Second operand
+ * @param[out] result Result of adding the first and second operand
+ * 
+ * @return Operation success status
+ * @retval true Success
+ * @retval false Failure
+ */
+template<UInt OperandOne, UInt... AllSecondOperands>
+bool addSecondUnsignedOperand(UInt operandOne, UInt operandTwo, UInt& result, std::index_sequence<AllSecondOperands...>) {
+
+    /**
+     * For each possible second operand, check if its adder for the current operandOne
+     * is the one we are looking for
+     */
+    return (unsignedAdder<OperandOne, AllSecondOperands>(operandOne, operandTwo, result) || ...);
 }
 
 } // namespace calc

@@ -6,6 +6,9 @@ project(LibCalculator
   DESCRIPTION "Possibly the greatest implementation of math operations ever"
   LANGUAGES CXX)
 
+# IDE Support
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # In the future, the library will be configured differently
 # if it is the top level project
 if(PROJECT_IS_TOP_LEVEL)
