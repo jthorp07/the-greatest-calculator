@@ -59,7 +59,7 @@ bool unsignedAdder(UInt operandOne, UInt operandTwo, UInt& result) {
  *        of them can add the two operands
  * 
  * @tparam OperandOne First operand in the operand pair this lookup accepts
- * @tparam AllSecondOperands The sequence of all possible second operands to invoke
+ * @tparam AllOperands The sequence of all possible operands to invoke
  *         adders with
  * 
  * @param[in] operandOne First operand
@@ -70,14 +70,44 @@ bool unsignedAdder(UInt operandOne, UInt operandTwo, UInt& result) {
  * @retval true Success
  * @retval false Failure
  */
-template<UInt OperandOne, UInt... AllSecondOperands>
-bool addSecondUnsignedOperand(UInt operandOne, UInt operandTwo, UInt& result, std::index_sequence<AllSecondOperands...>) {
+template<UInt OperandOne, UInt... AllOperands>
+bool addSecondUnsignedOperand(UInt operandOne, UInt operandTwo, UInt& result, std::index_sequence<AllOperands...>) {
 
     /**
      * For each possible second operand, check if its adder for the current operandOne
      * is the one we are looking for
      */
-    return (unsignedAdder<OperandOne, AllSecondOperands>(operandOne, operandTwo, result) || ...);
+    return (unsignedAdder<OperandOne, AllOperands>(operandOne, operandTwo, result) || ...);
+}
+
+/**
+ * @brief Entrypoint for the unsigned addition algorithm. Finds the correct adder
+ *        and gets its result
+ * 
+ * @tparam AllOperands The sequence of all possible operands to invoke
+ *         adders with
+ * 
+ * @param[in] operandOne First operand
+ * @param[in] operandTwo Second operand
+ * 
+ * @return The sum of operandOne and operandTwo
+ */
+template<UInt... AllOperands>
+UInt findUnsignedAdder(UInt operandOne, UInt operandTwo, std::index_sequence<AllOperands...>) {
+
+    /**
+     * Addition is hard and sometimes it doesn't work. Initialize result
+     * just in case
+     */
+    UInt result = 0;
+
+    /**
+     * For each first operand, check the adder for it and every possible second
+     * operand. If it is possible to compute the answer, it will be found
+     */
+    (addSecondUnsignedOperand<AllFirstOperands>(operandOne, operandTwo, result, std::make_index_sequence<UIntMax>{}) || ...);
+
+    return result;
 }
 
 } // namespace calc
