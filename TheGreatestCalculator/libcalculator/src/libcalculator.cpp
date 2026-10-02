@@ -5,3 +5,7 @@
  */
 
 #include "libcalculator.hpp"
+
+namespace {
+    volatile calc::UInt prep = calc::add<255>(255, 255);
+}
